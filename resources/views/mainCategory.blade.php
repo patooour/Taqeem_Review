@@ -1,0 +1,257 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{asset('assets/category/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/category/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/category/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/category/css/bootstrap.min.css')}}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+    <title>main-page</title>
+</head>
+
+<body>
+<div class="header" id="header">
+    <div class="container">
+        <img src="{{asset('assets/brand1/imgs/logooo.jpg')}}" class="logo">
+        <div>
+            @if(Auth::check())
+                <a href="#" class="log">Welcome {{\Illuminate\Support\Facades\Auth::user()->firstname}}
+                    {{\Illuminate\Support\Facades\Auth::user()->lastname}}</a>
+                <a href="/logout" class="log">Log out</a>
+
+            @else
+                <a href="/login" class="log">Log in</a>
+            @endif
+
+            <a href="#blog">Blog</a>
+            <a href="#about">About us</a>
+        </div>
+    </div>
+</div>
+<div class="title">
+    <div class="our-title">
+        <div class="first-title">
+            <br><br>
+            <p>Welcome to Taqeem</p>
+            <p>Every review is a unique experience <br> Read review , make your choice</p>
+            <form>
+                <input type="text" name="search" id="search"
+                       placeholder="Enter search name" class="form-control"
+                       onfocus="this.value=''">
+                <div id="search_list"></div>
+            </form>
+
+        </div>
+        <div class="second-title">
+            <img src="{{asset('assets/category/imgs/home page.png')}}">
+        </div>
+    </div>
+    <br><br><br>
+</div>
+
+
+<div class="main text-center pt-5 pb-5">
+    <h1>Categories</h1>
+    <div class="container">
+        <div class="row">
+
+            {{-- @foreach($categories as $category)
+
+                      <div class="col-sm-6 col-md-4 col-lg-3">
+                          <a href="/category/{{$category->id}}">
+                          <div class="box mb-3 bg-white" data-work="{{$category->category_name}}">
+                              <img class="img-fluid " src="{{asset('assets/category/imgs/noun-mobile-3615860.png')}}">
+                          </div>
+                          </a>
+                      </div>
+
+              @endforeach--}}
+
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/1">
+                    <div class="box mb-3 bg-white" data-work="Smart Phones">
+                        <img class="img-fluid " src="{{asset('assets/category/imgs/noun-mobile-3615860.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/3">
+                    <div class="box mb-3 bg-white" data-work="Headphones">
+                        <img class="img-fluid" src="{{asset('assets/category/imgs/noun-head-phone-3715054.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/6">
+                    <div class="box mb-3 bg-white" data-work="Games">
+                        <img class="img-fluid" src="{{asset('assets/category/imgs/noun-games-3266546.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/4">
+                    <div class="box mb-3 bg-white" data-work="Laptops">
+                        <img class="img-fluid" src="{{asset('assets/category/imgs/noun-laptop-1502541.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/5">
+                    <div class="box mb-3 bg-white" data-work="Cameras">
+                        <img class="img-fluid"
+                             src="{{asset('assets/category/imgs/WhatsApp Image 2022-04-29 at 5.26.51 PM.jpg')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/9">
+                    <div class="box mb-3 bg-white" data-work="Accessories">
+                        <img class="img-fluid"
+                             src="{{asset('assets/category/imgs/noun-usb-type-c-cable-3307702.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/2">
+                    <div class="box mb-3 bg-white" data-work="TVs">
+                        <img class="img-fluid" src="{{asset('assets/category/imgs/noun-tv.png')}}">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <a href="/category/8">
+                    <div class="box mb-3 bg-white" data-work="Smart Watches">
+                        <img class="img-fluid" src="{{asset('assets/category/imgs/noun-smartwatch-4548352.png')}}">
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="blog" class="related">
+    <h1>Top Reviews</h1>
+    <div class="most-related">
+        <div class="row">
+
+
+            @foreach($TopProducts as $TopProduct)
+                @php
+                    $id = $TopProduct->image_id;
+                 $img = \App\Models\Image::find($id);
+                @endphp
+
+                <div class="box col-lg-4">
+
+                    <a href="/product/review/{{$TopProduct->id}}"><img src="{{$img->path}}"> </a>
+                    <span>{{$TopProduct->product_name}}</span>
+
+
+                    @for ($i = 0; $i <= 5; $i++)
+                        <i class="filled fa fa-star"></i>
+                    @endfor
+
+
+                </div>
+
+
+            @endforeach
+
+        </div>
+    </div>
+
+    <div class="about" id="about">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 text-center text-md-start">
+                <div class="text">
+                    <h1>About Us</h1>
+                    <p class="text-black-50 fs-4">A start up made up on the experiences of people from different sites
+                        and places helps you know whether the product you want to buy is the best for you.</p>
+                    <p class="text-black-50 fs-4">We have reviews from the highest ranked e-commerce websites not just
+                        locally but globally.</p>
+                    <p class="text-black-50 fs-4">We also have our own customer reviews which reverses the whole real
+                        experience of the product usage procedure.</p>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="image">
+                    <img src="{{asset('assets/category/imgs/skills.png')}}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="footer pt-5 pb-5 text-white-50 text-center text-md-start">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="links">
+                    <h5 class="text-light">Contact Us</h5>
+                    <ul class="list-unstyled lh-lg">
+                        <li><a href="https://www.facebook.com/">Facebook</a></li>
+                        <li><a href="https://www.twitter.com/">Twitter</a></li>
+                        <li><a href="https://www.linkedin.com/">Linkedin</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="links">
+                    <h5 class="text-light">About Us</h5>
+                    <ul class="list-unstyled lh-lg">
+                        <li><a href="/">Categories</a></li>
+                        <li>Blog</li>
+                        <li>Brands</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="contact">
+                    <h5 class="text-light">Comunitty</h5>
+                    <ul class="list-unstyled lh-lg">
+                        <li><a href="/login">Sign In</a></li>
+                        <li><a href="/login">Sign up</a></li>
+                        <li><a href="/">Guest</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+<script src="{{asset('assets/category/js/main.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('#search').on('keyup',function(){
+            var query= $(this).val();
+            $.ajax({
+                url:"search",
+                type:"GET",
+                data:{'search':query},
+                success:function(data){
+                    $('#search_list').html(data);
+                }
+
+            });
+            //end of ajax call
+        });
+
+    });
+</script>
+
+</body>
+</html>
